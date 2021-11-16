@@ -8,12 +8,14 @@ import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.UUID;
 
-
 public class MainVerticle extends AbstractVerticle {
 
+  private static final Logger logger = LogManager.getLogger(MainVerticle.class);
 
   public static void main(String[] args) {
     final Vertx vertx = Vertx.vertx();
@@ -22,7 +24,7 @@ public class MainVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) {
-    System.out.println("start " + getClass().getName());
+    logger.info("start {}", getClass().getName());
     vertx.deployVerticle(new VerticleA());
     vertx.deployVerticle(new VerticleB());
     vertx.deployVerticle(VerticleN.class.getName(),
